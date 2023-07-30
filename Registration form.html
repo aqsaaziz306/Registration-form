@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 400px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .gender-container {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .gender-container label {
+            margin-right: 20px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .skills-container label {
+            flex-basis: 33%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #registrationData {
+            margin-top: 20px;
+        }
+
+        #registrationData table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #registrationData th,
+        #registrationData td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #registrationData th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Registration Form</h1>
+        <form>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password">
+
+                <div class="gender-container">
+                    <label>Gender:</label>
+                    <label><input type="radio" name="gender" value="male"> Male</label>
+                    <label><input type="radio" name="gender" value="female"> Female</label>
+                    <label><input type="radio" name="gender" value="other"> Other</label>
+                </div>
+
+                <div class="skills-container">
+                    <label>Skills:</label>
+                    <label><input type="checkbox" name="skills" value="html"> HTML</label>
+                    <label><input type="checkbox" name="skills" value="css"> CSS</label>
+                    <label><input type="checkbox" name="skills" value="javascript"> JavaScript</label>
+                    <label><input type="checkbox" name="skills" value="python"> Python</label>
+                    <!-- Add more skills as needed -->
+                </div>
+
+                <button type="button" onclick="register()">Register</button>
+            </div>
+
+            <div id="registrationData">
+                <h2>Registered Data:</h2>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Skills</th>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function register() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var skills = document.querySelectorAll('input[name="skills"]:checked');
+
+            if (name && email && password && gender && skills.length > 0) {
+                var table = document.querySelector("#registrationData table");
+                var newRow = table.insertRow(-1);
+                var nameCell = newRow.insertCell(0);
+                var emailCell = newRow.insertCell(1);
+                var genderCell = newRow.insertCell(2);
+                var skillsCell = newRow.insertCell(3);
+
+                nameCell.textContent = name;
+                emailCell.textContent = email;
+                genderCell.textContent = gender.value;
+
+                var skillsList = [];
+                skills.forEach(function(skill) {
+                    skillsList.push(skill.value);
+                });
+                skillsCell.textContent = skillsList.join(', ');
+
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+                gender.checked = false;
+                skills.forEach(function(skill) {
+                    skill.checked = false;
+                });
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+</body>
+</html>
